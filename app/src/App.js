@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './scss/main.scss'
 import './App.scss';
 import NumberInput from './components/numberInput/numberInput';
 import TipPercent from './components/tipPercent/tipPercent';
@@ -7,6 +8,7 @@ import TipPercent from './components/tipPercent/tipPercent';
 function App() {
 	const [tip, setTip] = useState();
 	const [people, setPeople] = useState();
+	const [percent, setPercent] = useState({selected: '',custom: '', percentages: [5, 10, 15, 25, 50]});
 
 	return (
 		<div className="App">
@@ -16,14 +18,10 @@ function App() {
 						<NumberInput id="tip" value={tip} label="Bill" placeholder="0.00" onChange={(event) => setTip(event.target.valueAsNumber)}/>
 						<p>Select tip %</p>
 						<div className="tip-percent">
-							<TipPercent className="checkbox" percent={5} />
-							<TipPercent className="checkbox" percent={10} />
-							<TipPercent className="checkbox" percent={15} />
-							<TipPercent className="checkbox" percent={25} />
-							<TipPercent className="checkbox" percent={50} />
-							<NumberInput id="custom" value={people} label="" placeholder="Custom" onChange={(event) => setPeople(event.target.valueAsNumber)}/>
+							{percent.percentages.map(percent => (<TipPercent className="checkbox" percent={percent} />))}
+							<NumberInput id="custom" value={percent.custom} label="" placeholder="Custom" onChange={(event) => setPeople(event.target.valueAsNumber)}/>
 						</div>
-						<NumberInput id="people" value={people} label="Number of People" placeholder="0" onChange={(event) => setPeople(event.target.valueAsNumber)}/>
+						<NumberInput id="people" value={people} label="Number of People" placeholder="0" error="Can't be zero" onChange={(event) => setPeople(event.target.valueAsNumber)}/>
 					</div>
 					<div className="calculator__outputs">
 					

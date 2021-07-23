@@ -12,7 +12,7 @@ export default class NumberInput extends Component {
 		label: PropTypes.string,
 		placeholder: PropTypes.string,
 		onChange: PropTypes.func,
-	 };
+	};
 	static defaultProps = {
 		locked: false,
 		focussed: false,
@@ -21,21 +21,46 @@ export default class NumberInput extends Component {
 		label: '',
 		placeholder: '',
 		onChange: () => '',
-	 };
+	};
+
+	constructor(props) {
+		super(props);
+
+		this.state = {
+		  focussed: false,
+		  error: false,
+		};
+	}
+	
+	handleError = event => {
+
+		// Check if people has zero
+		if(event.target.id === 'people' && event.target.value === '0') {
+			this.setState({error: true})
+		} else if(event.target.id === 'people' && event.target.value !== '0') {
+			this.setState({error: false})
+		}
+		
+	}
 	
 	render() {
+		const { focussed, error } = this.state;
 		const { id, value, label, placeholder} = this.props;
 
+		const fieldClassName = `field ${focussed ? 'focussed' : ''}`;
+
 		return(
-			<>
-				<label htmlFor={id}>{label}</label>
-				<div className="field">
+			<>	
+				{ label.length > 0 && <label htmlFor={id}>{label}</label> }
+				<div className={fieldClassName}>
 					<input
 						id={id}
 						type="number"
 						value={value}
 						placeholder={placeholder}
-						onChange={this.props.onChange}
+						onChange={e => { this.props.onChange(e); this.handleError(e)}}
+						onFocus={() => this.setState({focussed: true})}
+						onBlur={() => this.setState({ focussed: false })}
 					/>
 				</div>
 			</>
