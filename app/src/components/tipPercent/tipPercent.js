@@ -25,6 +25,8 @@ export default class TipPercent extends Component {
 			sib.classList.remove('active');
 		}
 
+		// Set current target to active and checked
+		event.target.checked = true;
 		parent.classList.add('active');
 	}
 

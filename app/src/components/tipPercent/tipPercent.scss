@@ -1,3 +1,5 @@
+@import '../../scss/main.scss';
+
 label.checkbox {
 	background-color: #00494d;
     color: #fff;
@@ -8,13 +10,24 @@ label.checkbox {
     cursor: pointer;
     font-size: 23px;
     margin-bottom: 0.5rem;
+	height: 45px;
 
 	&.active {
-		background-color: hsl(172, 67%, 45%);
-		color: hsl(183, 100%, 15%);
+		background-color: $strongCyan;
+		color: $darkCyan;
+
+		&:hover {
+			background-color: $strongCyan;
+			color: $darkCyan;
+		}
+	}
+
+	&:hover {
+		color: $darkCyan;
+		background-color: $hover;
 	}
 
 	input {
-		// display: none;
+		display: none;
 	}
 }
